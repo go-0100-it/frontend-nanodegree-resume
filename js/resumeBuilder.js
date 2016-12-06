@@ -170,6 +170,33 @@ var formattedEmail = HTMLemail.replace("%data%", bio.contactInfo.email);
 var formattedGitHub = HTMLgithub.replace("%data%", bio.contactInfo.github);
 var formattedLocation = HTMLlocation.replace("%data%", bio.contactInfo.location);
 
+var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs.employer);
+var formattedWorkTitle = HTMLworkTitle.replace("%data%", work.jobs.title);
+var formattedWorkDates = HTMLworkDates.replace("%data%", work.jobs.dates);
+var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs.location);
+var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs.description);
+
+var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects.title);
+var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.projects.dates);
+var HTMLprojectDescription = '<p><br>%data%</p>';
+var HTMLprojectImage = '<img src="%data%">';
+
+var HTMLschoolName = '<a href="#">%data%';
+var HTMLschoolDegree = ' -- %data%</a>';
+var HTMLschoolDates = '<div class="date-text">%data%</div>';
+var HTMLschoolLocation = '<div class="location-text">%data%</div>';
+var HTMLschoolMajor = '<em><br>Major: %data%</em>';
+
+var HTMLonlineClasses = '<h3>Online Classes</h3>';
+var HTMLonlineTitle = '<a href="#">%data%';
+var HTMLonlineSchool = ' - %data%</a>';
+var HTMLonlineDates = '<div class="date-text">%data%</div>';
+var HTMLonlineURL = '<br><a href="#">%data%</a>';
+
+var internationalizeButton = '<button>Internationalize</button>';
+var googleMap = '<div id="map"></div>';
+
+
 $("#header").prepend(formattedBioImage);
 $("#header").prepend(formattedwelcomeMsg);
 $("#header").prepend(formattedRole);
