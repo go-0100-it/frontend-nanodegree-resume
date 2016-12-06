@@ -32,12 +32,13 @@ function createHTML(contentData, htmlStrings){
         var key = Object.keys(htmlStrings)[i];
         if (contentData.hasOwnProperty(key) && htmlStrings.hasOwnProperty(key)) {
             if(htmlStrings[key].isArray){
-                // call function to iterate over the array
+                // TODO call function to iterate over the array
             }else if(htmlStrings[key].isObject){
                 if(key === "splitLink"){}
-                // call function to iterate over the object's properties
+                // TODO call function to iterate over the object's properties
             }else{
-                htmlStrings[key].replace("%data%", contentData[key]);
+                var newHTMLString = htmlStrings[key];
+                newHTMLString.replace("%data%", contentData[key]);
                 $("#header").prepend(htmlStrings[key]);
             }
         }
