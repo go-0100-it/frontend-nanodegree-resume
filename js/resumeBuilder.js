@@ -1,6 +1,14 @@
 /*
 This is empty on purpose! Your code to build the resume will go here.
  */
+var isArray = function(a) {
+    return (!!a) && (a.constructor === Array);
+};
+
+var isObject = function(a) {
+    return (!!a) && (a.constructor === Object);
+};
+
 var bio = {
     "name": "Dave Waters",
     "role": "Android and Web Application Developer",
@@ -13,7 +21,27 @@ var bio = {
     "welcomeMessage": "Welcome to my on-line resume!",
     "skills": ["HTML", "CSS", "JavaScript", "JSON", "Python", "Java", "XML"],
     "biopic": "images/bio_image.jpg",
-    "display": function(){}
+    "display": function(){
+        createHTML(bio, HTMLheader);
+    }
+}
+
+function createHTML(contentData, htmlStrings){
+
+    for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
+        var key = Object.keys(htmlStrings)[i];
+        if (contentData.hasOwnProperty(key) && htmlStrings.hasOwnProperty(key)) {
+            if(htmlStrings[key].isArray){
+                // call function to iterate over the array
+            }else if(htmlStrings[key].isObject){
+                if(key === "splitLink"){}
+                // call function to iterate over the object's properties
+            }else{
+                htmlStrings[key].replace("%data%", contentData[key]);
+                $("#header").prepend(htmlStrings[key]);
+            }
+        }
+    }
 }
 
 var education = {
