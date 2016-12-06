@@ -178,14 +178,14 @@ var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs.descr
 
 var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects.title);
 var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.projects.dates);
-var HTMLprojectDescription = '<p><br>%data%</p>';
-var HTMLprojectImage = '<img src="%data%">';
+var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.projects.descrition);
+var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects.images[]);
 
-var HTMLschoolName = '<a href="#">%data%';
-var HTMLschoolDegree = ' -- %data%</a>';
-var HTMLschoolDates = '<div class="date-text">%data%</div>';
-var HTMLschoolLocation = '<div class="location-text">%data%</div>';
-var HTMLschoolMajor = '<em><br>Major: %data%</em>';
+var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools.name);
+var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools.degree);
+var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools.dates);
+var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools.location);
+var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools.major);
 
 var HTMLonlineClasses = '<h3>Online Classes</h3>';
 var HTMLonlineTitle = '<a href="#">%data%';
