@@ -4,15 +4,16 @@ This is empty on purpose! Your code to build the resume will go here.
 var bio = {
     "name": "Dave Waters",
     "role": "Android and Web Application Developer",
-    "contactInfo": {
-        "email": "dave.waters89@gmail.com",
+    "contacts": {
         "mobile": "519-771-3043",
+        "email": "dave.waters89@gmail.com",
         "github": "https://github.com/go-0100-it",
         "location": "Brantford, Ontario, Canada"
     },
-    "bioPic": "images/bio_image.jpg",
-    "welcomeMsg": "Welcome to my on-line resume!",
-    "skills": ["HTML", "CSS", "JavaScript", "JSON", "Python", "Java", "XML"]
+    "welcomeMessage": "Welcome to my on-line resume!",
+    "skills": ["HTML", "CSS", "JavaScript", "JSON", "Python", "Java", "XML"],
+    "biopic": "images/bio_image.jpg",
+    "display": function(){}
 }
 
 var education = {
