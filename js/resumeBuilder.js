@@ -187,15 +187,10 @@ var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools.d
 var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools.location);
 var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools.major);
 
-var HTMLonlineClasses = '<h3>Online Classes</h3>';
-var HTMLonlineTitle = '<a href="#">%data%';
-var HTMLonlineSchool = ' - %data%</a>';
-var HTMLonlineDates = '<div class="date-text">%data%</div>';
-var HTMLonlineURL = '<br><a href="#">%data%</a>';
-
-var internationalizeButton = '<button>Internationalize</button>';
-var googleMap = '<div id="map"></div>';
-
+var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineSchools.title);
+var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", education.onlineSchools.school);
+var formattedOnlineDates = HTMLonlineDates.replace("%data%", education.onlineSchools.dates);
+var formattedOnlineURL = HTMLonlineURL.replace("%data%", education.onlineSchools.url);
 
 $("#header").prepend(formattedBioImage);
 $("#header").prepend(formattedwelcomeMsg);
