@@ -30,11 +30,11 @@ var HTMLappendHeader = {
 
 var HTMLwork = {
     workStart: '<div class="work-entry"></div>',
-    employer: '<a href="#">%data%',
     splitLink: {
-        title: ' - %data%</a>',
-        dates: '<div class="date-text">%data%</div>'
+        employer: '<a href="#">%data%',
+        title: ' - %data%</a>'    
     },
+    dates: '<div class="date-text">%data%</div>',
     location: '<div class="location-text">%data%</div>',
     description: '<p><br>%data%</p>'
 }
