@@ -21,173 +21,196 @@ var bio = {
     "welcomeMessage": "Welcome to my on-line resume!",
     "skills": ["HTML", "CSS", "JavaScript", "JSON", "Python", "Java", "XML"],
     "biopic": "images/bio_image.jpg",
-    "display": function(){
+    "display": function() {
         createHTML(bio, HTMLheader);
     }
 }
 
-function createHTML(contentData, htmlStrings){
+function prependHTML(contentData, htmlStrings, pendElement) {
 
-    for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
-        var key = Object.keys(htmlStrings)[i];
-        if (contentData.hasOwnProperty(key) && htmlStrings.hasOwnProperty(key)) {
-            if(htmlStrings[key].isArray){
-                // TODO call function to iterate over the array
-            }else if(htmlStrings[key].isObject){
-                if(key === "splitLink"){}
-                // TODO call function to iterate over the object's properties
-            }else{
-                var newHTMLString = htmlStrings[key];
-                newHTMLString.replace("%data%", contentData[key]);
-                $("#header").prepend(htmlStrings[key]);
-            }
-        }
+    var arr = Object.keys(htmlStrings);
+
+    for (var i = arr.length; i > -1; i--) {
+
+        var key = arr[i];
+
+        if (contentData.hasOwnProperty(key)) {
+
+		var newHTMLString = htmlStrings[key].replace("%data%", contentData[key]);
+		pendElement.prepend(newHTMLString);
+
+        }else{
+		pendElement.prepend(htmlStrings[key]);
+	}
     }
 }
 
+function appendHTML(contentData, htmlStrings, pendElement) {
+
+    for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
+
+        var key = Object.keys(htmlStrings)[i];
+
+        if (contentData.hasOwnProperty(key)) {
+
+            if (isArray(htmlStrings[key]) || isArray(contentData[key])) {
+		
+                appendArrayHTML(contentData[key], htmlStrings[key], $("#skills"));
+
+            } else if (isObject(htmlStrings[key]) || isObject(contentData[key])) {
+
+                if (key === "splitLink") {
+			
+
+		}else{
+
+		    appendHTML(contentData[key], htmlStrings[key], $("#topContacts"));
+		}
+
+            } else {
+
+		pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
+            }
+        }else{
+		pendElement.append(htmlStrings[key]);
+	}
+    }
+}
+
+function appendArrayHTML(contentData, htmlString, pendElement){
+
+    for (var i = 0; i < contentData.length; i++) {
+
+	pendElement.append(htmlString.replace("%data%", contentData[i]));
+
+    }
+}
+
+prependHTML(bio, HTMLprependHeader, $("#header"));
+appendHTML(bio, HTMLappendHeader, $("#header"));
+
+/*
+
 var education = {
-    "schools": [
-        {
-        "name": "Mohawk College", 
-        "location": "Hamilton, Ontario CAN",  
-        "degree": "Industrial Maintenance Mechanic",  
-        "majors": ["strings"],  
+    "schools": [{
+        "name": "Mohawk College",
+        "location": "Hamilton, Ontario CAN",
+        "degree": "Industrial Maintenance Mechanic",
+        "majors": ["strings"],
         "dates": "string", //(works with a hyphen between them)  
         "url": "string"
-        },
-        {
-        "name": "Mohawk College", 
-        "location": "Hamilton, Ontario CAN",  
-        "degree": "PLC Programming",  
-        "majors": ["strings"],  
+    }, {
+        "name": "Mohawk College",
+        "location": "Hamilton, Ontario CAN",
+        "degree": "PLC Programming",
+        "majors": ["strings"],
         "dates": "string", //(works with a hyphen between them)  
         "url": "string"
-        },
-        {
-        "name": "Granton Institute of Technology", 
-        "location": "Toronto, Ontario CAN",  
-        "degree": "Industrial Electricity and Electronics",  
-        "majors": ["strings"],  
+    }, {
+        "name": "Granton Institute of Technology",
+        "location": "Toronto, Ontario CAN",
+        "degree": "Industrial Electricity and Electronics",
+        "majors": ["strings"],
         "dates": "string", //(works with a hyphen between them)  
         "url": "string"
-        }
-    ], 
-    "onlineCourses": [
-        { 
-        "title": "Android Basics NanoDegree",  
-        "school": "Udacity",  
+    }],
+    "onlineCourses": [{
+        "title": "Android Basics NanoDegree",
+        "school": "Udacity",
         "dates": "string", //(works with a hyphen between them)  
         "url": "https://www.udacity.com/course/android-basics-nanodegree-by-google--nd803"
-        },
-        { 
-        "title": "JavaScript (Understanding the Wierd Parts)",  
-        "school": "Udemy - Anthony Alicea",  
+    }, {
+        "title": "JavaScript (Understanding the Wierd Parts)",
+        "school": "Udemy - Anthony Alicea",
         "dates": "string", //(works with a hyphen between them)  
         "url": "https://www.udemy.com/understand-javascript/learn/v4/overview"
-        },
-        { 
-        "title": "Intro to Programming NanaDegree",  
-        "school": "Udacity",  
+    }, {
+        "title": "Intro to Programming NanaDegree",
+        "school": "Udacity",
         "dates": "string", //(works with a hyphen between them)  
         "url": "https://www.udacity.com/course/intro-to-programming-nanodegree--nd000"
-        },
-        { 
-        "title": "Front-End Web Developer NanoDegree",  
-        "school": "Udacity",  
+    }, {
+        "title": "Front-End Web Developer NanoDegree",
+        "school": "Udacity",
         "dates": "string", //(works with a hyphen between them)  
         "url": "string"
-        }
-    ],
-    "display": function(){} // taking no parameters
+    }],
+    "display": function() {} // taking no parameters
 }
 
 var work = {
-    "jobs": [
-        {
-        "employer": "Toyota Motor Manufacturing Canada",   
-        "title": "Multi-skilled Team Leader",   
-        "location": "string",   
+    "jobs": [{
+        "employer": "Toyota Motor Manufacturing Canada",
+        "title": "Multi-skilled Team Leader",
+        "location": "string",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
-        },
-        {
-        "employer": "Oakrun Bakery",   
-        "title": "Millwright",   
-        "location": "string",   
+    }, {
+        "employer": "Oakrun Bakery",
+        "title": "Millwright",
+        "location": "string",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
-        },
-        {
-        "employer": "Wrigley Canada",   
-        "title": "Tab Wrapping Mechanic",   
-        "location": "string",   
+    }, {
+        "employer": "Wrigley Canada",
+        "title": "Tab Wrapping Mechanic",
+        "location": "string",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
-        },
-        {
-        "employer": "Patheon Pharmacutical",   
-        "title": "Packaging Group Leader",   
-        "location": "string",   
+    }, {
+        "employer": "Patheon Pharmacutical",
+        "title": "Packaging Group Leader",
+        "location": "string",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
-        },
-        {
-        "employer": "Speciality Coatings Ltd.",   
-        "title": "Chemical Formulation Specialist",   
-        "location": "string",   
+    }, {
+        "employer": "Speciality Coatings Ltd.",
+        "title": "Chemical Formulation Specialist",
+        "location": "string",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
-        }
-    ],   
-    "display": function(){} //taking no parameters
+    }],
+    "display": function() {} //taking no parameters
 }
 
 var projects = {
-    "projects": [
-        {  
-        "title": "string",   
+    "projects": [{
+        "title": "string",
         "dates": "string", //(works with a hyphen between them)  
-        "description": "string", 
+        "description": "string",
         "images": ["strings"] // urls
-        },
-        {  
-        "title": "string",   
+    }, {
+        "title": "string",
         "dates": "string", //(works with a hyphen between them)  
-        "description": "string", 
+        "description": "string",
         "images": ["strings"] // urls
-        },
-        {  
-        "title": "string",   
+    }, {
+        "title": "string",
         "dates": "string", //(works with a hyphen between them)  
-        "description": "string", 
+        "description": "string",
         "images": ["strings"] // urls
-        },
-        {  
-        "title": "string",   
+    }, {
+        "title": "string",
         "dates": "string", //(works with a hyphen between them)  
-        "description": "string", 
+        "description": "string",
         "images": ["strings"] // urls
-        },
-        {  
-        "title": "string",   
+    }, {
+        "title": "string",
         "dates": "string", //(works with a hyphen between them)  
-        "description": "string", 
+        "description": "string",
         "images": ["strings"] // urls
-        },
-        {  
-        "title": "string",   
+    }, {
+        "title": "string",
         "dates": "string", //(works with a hyphen between them)  
-        "description": "string", 
+        "description": "string",
         "images": ["strings"] // urls
-        },
-        {  
-        "title": "string",   
+    }, {
+        "title": "string",
         "dates": "string", //(works with a hyphen between them)  
-        "description": "string", 
+        "description": "string",
         "images": ["strings"] // urls
-        }
-    ], 
-    "display": function(){} // taking no parameters
+    }],
+    "display": function() {} // taking no parameters
 }
 
 
@@ -231,3 +254,4 @@ $("#topContacts").append(formattedMobile);
 $("#topContacts").append(formattedEmail);
 $("#topContacts").append(formattedGitHub);
 $("#topContacts").append(formattedLocation);
+*/
