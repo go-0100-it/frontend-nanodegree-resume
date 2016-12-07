@@ -26,71 +26,6 @@ var bio = {
     }
 }
 
-function prependHTML(contentData, htmlStrings, pendElement) {
-
-    var arr = Object.keys(htmlStrings);
-
-    for (var i = arr.length; i > -1; i--) {
-
-        var key = arr[i];
-
-        if (contentData.hasOwnProperty(key)) {
-
-		var newHTMLString = htmlStrings[key].replace("%data%", contentData[key]);
-		pendElement.prepend(newHTMLString);
-
-        }else{
-		pendElement.prepend(htmlStrings[key]);
-	}
-    }
-}
-
-function appendHTML(contentData, htmlStrings, pendElement) {
-
-    for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
-
-        var key = Object.keys(htmlStrings)[i];
-
-        if (contentData.hasOwnProperty(key)) {
-
-            if (isArray(htmlStrings[key]) || isArray(contentData[key])) {
-		
-                appendArrayHTML(contentData[key], htmlStrings[key], $("#skills"));
-
-            } else if (isObject(htmlStrings[key]) || isObject(contentData[key])) {
-
-                if (key === "splitLink") {
-			
-
-		}else{
-
-		    appendHTML(contentData[key], htmlStrings[key], $("#topContacts"));
-		}
-
-            } else {
-
-		pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
-            }
-        }else{
-		pendElement.append(htmlStrings[key]);
-	}
-    }
-}
-
-function appendArrayHTML(contentData, htmlString, pendElement){
-
-    for (var i = 0; i < contentData.length; i++) {
-
-	pendElement.append(htmlString.replace("%data%", contentData[i]));
-
-    }
-}
-
-prependHTML(bio, HTMLprependHeader, $("#header"));
-appendHTML(bio, HTMLappendHeader, $("#header"));
-
-/*
-
 var education = {
     "schools": [{
         "name": "Mohawk College",
@@ -214,44 +149,65 @@ var projects = {
 }
 
 
-var formattedBioImage = HTMLbioPic.replace("%data%", bio.bioPic);
-var formattedwelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMsg);
-var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-var formattedName = HTMLheaderName.replace("%data%", bio.name);
-var formattedMobile = HTMLmobile.replace("%data%", bio.contactInfo.mobile);
-var formattedEmail = HTMLemail.replace("%data%", bio.contactInfo.email);
-var formattedGitHub = HTMLgithub.replace("%data%", bio.contactInfo.github);
-var formattedLocation = HTMLlocation.replace("%data%", bio.contactInfo.location);
+function prependHTML(contentData, htmlStrings, pendElement) {
 
-var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs.employer);
-var formattedWorkTitle = HTMLworkTitle.replace("%data%", work.jobs.title);
-var formattedWorkDates = HTMLworkDates.replace("%data%", work.jobs.dates);
-var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs.location);
-var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs.description);
+    var arr = Object.keys(htmlStrings);
 
-var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects.title);
-var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.projects.dates);
-var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.projects.descrition);
-var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects.images[]);
+    for (var i = arr.length; i > -1; i--) {
 
-var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools.name);
-var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools.degree);
-var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools.dates);
-var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools.location);
-var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools.major);
+        var key = arr[i];
 
-var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineSchools.title);
-var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", education.onlineSchools.school);
-var formattedOnlineDates = HTMLonlineDates.replace("%data%", education.onlineSchools.dates);
-var formattedOnlineURL = HTMLonlineURL.replace("%data%", education.onlineSchools.url);
+        if (contentData.hasOwnProperty(key)) {
 
-$("#header").prepend(formattedBioImage);
-$("#header").prepend(formattedwelcomeMsg);
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
+		var newHTMLString = htmlStrings[key].replace("%data%", contentData[key]);
+		pendElement.prepend(newHTMLString);
 
-$("#topContacts").append(formattedMobile);
-$("#topContacts").append(formattedEmail);
-$("#topContacts").append(formattedGitHub);
-$("#topContacts").append(formattedLocation);
-*/
+        }else{
+		pendElement.prepend(htmlStrings[key]);
+	}
+    }
+}
+
+function appendHTML(contentData, htmlStrings, pendElement) {
+
+    for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
+
+        var key = Object.keys(htmlStrings)[i];
+
+        if (contentData.hasOwnProperty(key)) {
+
+            if (isArray(htmlStrings[key]) || isArray(contentData[key])) {
+		
+                appendArrayHTML(contentData[key], htmlStrings[key], $("#skills"));
+
+            } else if (isObject(htmlStrings[key]) || isObject(contentData[key])) {
+
+                if (key === "splitLink") {
+			
+
+		}else{
+
+		    appendHTML(contentData[key], htmlStrings[key], $("#topContacts"));
+		}
+
+            } else {
+
+		pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
+            }
+        }else{
+		pendElement.append(htmlStrings[key]);
+	}
+    }
+}
+
+function appendArrayHTML(contentData, htmlString, pendElement){
+
+    for (var i = 0; i < contentData.length; i++) {
+
+	pendElement.append(htmlString.replace("%data%", contentData[i]));
+
+    }
+}
+
+prependHTML(bio, HTMLprependHeader, $("#header"));
+appendHTML(bio, HTMLappendHeader, $("#header"));
