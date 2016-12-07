@@ -152,18 +152,13 @@ var projects = {
 function prependHTML(contentData, htmlStrings, pendElement) {
 
     var arr = Object.keys(htmlStrings);
-
     for (var i = arr.length; i > -1; i--) {
-
-        var key = arr[i];
-
+    	var key = arr[i];
         if (contentData.hasOwnProperty(key)) {
-
-		var newHTMLString = htmlStrings[key].replace("%data%", contentData[key]);
-		pendElement.prepend(newHTMLString);
-
+	    var newHTMLString = htmlStrings[key].replace("%data%", contentData[key]);
+	    pendElement.prepend(newHTMLString);
         }else{
-		pendElement.prepend(htmlStrings[key]);
+	    pendElement.prepend(htmlStrings[key]);
 	}
     }
 }
@@ -171,27 +166,17 @@ function prependHTML(contentData, htmlStrings, pendElement) {
 function appendHTML(contentData, htmlStrings, pendElement) {
 
     for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
-
         var key = Object.keys(htmlStrings)[i];
-
         if (contentData.hasOwnProperty(key)) {
-
-            if (isArray(htmlStrings[key]) || isArray(contentData[key])) {
-		
-                appendArrayHTML(contentData[key], htmlStrings[key], $("#skills"));
-
+            if (isArray(htmlStrings[key]) || isArray(contentData[key])) {		
+                arrayLoop(contentData[key], htmlStrings[key], $("#skills"));	    
             } else if (isObject(htmlStrings[key]) || isObject(contentData[key])) {
-
                 if (key === "splitLink") {
-			
-
+		    //do something
 		}else{
-
 		    appendHTML(contentData[key], htmlStrings[key], $("#topContacts"));
 		}
-
             } else {
-
 		pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
             }
         }else{
@@ -200,12 +185,33 @@ function appendHTML(contentData, htmlStrings, pendElement) {
     }
 }
 
-function appendArrayHTML(contentData, htmlString, pendElement){
+function objLoop(contentData, htmlStrings, pendElement) {
+
+    for (var i = 0; i < Object.keys(contentData).length; i++) {
+	var key = Object.keys(contentData)[i]
+	if (isArray(htmlStrings[key]) || isArray(contentData[key])) {
+	    simpleArrayLoop(contentData[key], htmlStrings[key], pendElement);
+	} else {
+	    pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
+	}
+    }
+}
+
+function arrayLoop(contentData, htmlString, pendElement){
 
     for (var i = 0; i < contentData.length; i++) {
+	if (isObject(htmlStrings[i]) || isObject(contentData[i])) {
+	    arrayLoop(contentData[i], htmlStrings[i], pendElement);
+	} else {
+	    pendElement.append(htmlStrings[i].replace("%data%", contentData[i]));
+	}
+    }
+}
 
-	pendElement.append(htmlString.replace("%data%", contentData[i]));
+function simpleArrayLoop(contentData, htmlString, pendElement){
 
+    for (var i = 0; i < contentData.length; i++) {
+	pendElement.append(htmlStrings[i].replace("%data%", contentData[i]));
     }
 }
 
