@@ -22,7 +22,8 @@ var bio = {
     "skills": ["HTML", "CSS", "JavaScript", "JSON", "Python", "Java", "XML"],
     "biopic": "images/bio_image.jpg",
     "display": function() {
-        createHTML(bio, HTMLheader);
+        prependHTML(bio, HTMLprependHeader, $("#header"));
+	appendHTML(bio, HTMLappendHeader, $("#header"));
     }
 }
 
@@ -70,15 +71,17 @@ var education = {
         "dates": "string", //(works with a hyphen between them)  
         "url": "string"
     }],
-    "display": function() {} // taking no parameters
+    "display": function() {
+	appendHTML(education, HTMLeducation, $("#education"));
+     }
 }
 
 var work = {
     "jobs": [{
         "employer": "Toyota Motor Manufacturing Canada",
         "title": "Multi-skilled Team Leader",
-        "location": "string",
-        "dates": "string", //(Can be 'in progress')  
+        "location": "Cambridge, Ontario CAN",
+        "dates": "2008 - Present", //(Can be 'in progress')  
         "description": "string"
     }, {
         "employer": "Oakrun Bakery",
@@ -105,47 +108,51 @@ var work = {
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
     }],
-    "display": function() {} //taking no parameters
+    "display": function() {
+	appendHTML(work, HTMLwork, $("#workExperience"));
+    }
 }
 
 var projects = {
     "projects": [{
-        "title": "string",
-        "dates": "string", //(works with a hyphen between them)  
-        "description": "string",
-        "images": ["strings"] // urls
+        "title": "Project 1",
+        "dates": "March 2016", //(works with a hyphen between them)  
+        "description": "This was my favorite project.",
+        "images": ["http://lorempixel.com/g/204/100", "http://lorempixel.com/g/205/101", "http://lorempixel.com/g/206/102", "http://lorempixel.com/g/207/103"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["strings"] // urls
+        "images": ["http://lorempixel.com/g/104/100", "http://lorempixel.com/g/101/100", "http://lorempixel.com/g/102/100", "http://lorempixel.com/g/103/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["strings"] // urls
+        "images": ["http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/101", "http://lorempixel.com/g/200/102", "http://lorempixel.com/g/200/103"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["strings"] // urls
+        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["strings"] // urls
+        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["strings"] // urls
+        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["strings"] // urls
+        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
     }],
-    "display": function() {} // taking no parameters
+    "display": function() {
+	appendHTML(projects, HTMLprojects, $("#projects"));
+    }
 }
 
 
@@ -153,67 +160,70 @@ function prependHTML(contentData, htmlStrings, pendElement) {
 
     var arr = Object.keys(htmlStrings);
     for (var i = arr.length; i > -1; i--) {
-    	var key = arr[i];
+
+        var key = arr[i];
         if (contentData.hasOwnProperty(key)) {
-	    var newHTMLString = htmlStrings[key].replace("%data%", contentData[key]);
-	    pendElement.prepend(newHTMLString);
-        }else{
-	    pendElement.prepend(htmlStrings[key]);
-	}
+            pendElement.prepend(htmlStrings[key].replace("%data%", contentData[key]));
+        } else {
+            pendElement.prepend(htmlStrings[key]);
+        }
     }
 }
 
 function appendHTML(contentData, htmlStrings, pendElement) {
 
+    var element;
     for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
+
         var key = Object.keys(htmlStrings)[i];
         if (contentData.hasOwnProperty(key)) {
-            if (isArray(htmlStrings[key]) || isArray(contentData[key])) {		
-                arrayLoop(contentData[key], htmlStrings[key], $("#skills"));	    
+
+            if (isArray(htmlStrings[key]) || isArray(contentData[key])) {
+		element = htmlStrings === HTMLappendHeader ? $("#skills") : pendElement;
+                arrayLoop(contentData[key], htmlStrings[key], element);
             } else if (isObject(htmlStrings[key]) || isObject(contentData[key])) {
-                if (key === "splitLink") {
-		    //do something
-		}else{
-		    appendHTML(contentData[key], htmlStrings[key], $("#topContacts"));
-		}
+		element = htmlStrings == HTMLappendHeader ? $("#topContacts") : pendElement;
+                appendHTML(contentData[key], htmlStrings[key], element);
             } else {
-		pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
+                pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
             }
-        }else{
+
+        } else {
+
+            if(key === "splitLink"){
+		splitLinkLoop(contentData, htmlStrings[key], pendElement);
+		i++;
+	    }else{
 		pendElement.append(htmlStrings[key]);
-	}
+	    }
+        }
     }
 }
 
-function objLoop(contentData, htmlStrings, pendElement) {
-
-    for (var i = 0; i < Object.keys(contentData).length; i++) {
-	var key = Object.keys(contentData)[i]
-	if (isArray(htmlStrings[key]) || isArray(contentData[key])) {
-	    simpleArrayLoop(contentData[key], htmlStrings[key], pendElement);
-	} else {
-	    pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
-	}
-    }
-}
-
-function arrayLoop(contentData, htmlString, pendElement){
+function arrayLoop(contentData, htmlStrings, pendElement) {
 
     for (var i = 0; i < contentData.length; i++) {
-	if (isObject(htmlStrings[i]) || isObject(contentData[i])) {
-	    arrayLoop(contentData[i], htmlStrings[i], pendElement);
-	} else {
-	    pendElement.append(htmlStrings[i].replace("%data%", contentData[i]));
-	}
+
+        if (isObject(htmlStrings[i]) || isObject(contentData[i])) {
+            appendHTML(contentData[i], htmlStrings[0], pendElement);
+        } else {
+            pendElement.append(htmlStrings.replace("%data%", contentData[i]));
+        }
     }
 }
 
-function simpleArrayLoop(contentData, htmlString, pendElement){
-
-    for (var i = 0; i < contentData.length; i++) {
-	pendElement.append(htmlStrings[i].replace("%data%", contentData[i]));
+function splitLinkLoop(contentData, htmlStrings, pendElement) {
+    
+    var arr = [];
+    for (var i = 0; i < Object.keys(htmlStrings).length; i++) {
+	var key = Object.keys(htmlStrings)[i];
+	arr.push(htmlStrings[key].replace("%data%", contentData[key]));
     }
+    pendElement.append(arr.join(""));
 }
 
-prependHTML(bio, HTMLprependHeader, $("#header"));
-appendHTML(bio, HTMLappendHeader, $("#header"));
+bio.display();
+work.display();
+projects.display();
+education.display();
+
