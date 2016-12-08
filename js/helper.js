@@ -29,33 +29,40 @@ var HTMLappendHeader = {
 }
 
 var HTMLwork = {
-    workStart: '<div class="work-entry"></div>',
-    splitLink: {
-        employer: '<a href="#">%data%',
-        title: ' - %data%</a>'
-    },
-    dates: '<div class="date-text">%data%</div>',
-    location: '<div class="location-text">%data%</div>',
-    description: '<p><br>%data%</p>'
+    jobs: [{
+    	workStart: '<div class="work-entry"></div>',
+	splitLink: {
+            employer: '<a href="#">%data%',
+            title: ' - %data%</a>'
+	},
+	dummy: 'dummy',
+    	dates: '<div class="date-text">%data%</div>',
+    	location: '<div class="location-text">%data%</div>',
+    	description: '<p><br>%data%</p>'
+    }]
 }
 
 var HTMLprojects = {
     projects: [{
         projectStart: '<div class="project-entry"></div>',
-        title: '<a href="#">%data%</a>',
-        dates: '<div class="date-text">%data%</div>',
+	splitLink: {
+            title: '<a href="#">%data%</a>',
+            dates: '<div class="date-text">%data%</div>'
+	},
+	dummy: 'dummy',
         description: '<p><br>%data%</p>',
         images: '<img src="%data%">'
     }]
 }
 
-var HTMLeductation = {
+var HTMLeducation = {
     schools: [{
         schoolsStart: '<div class="education-entry"></div>',
         splitLink: {
             name: '<a href="#">%data%',
             degree: ' -- %data%</a>'
         },
+	dummy: 'dummy',
         dates: '<div class="date-text">%data%</div>',
         location: '<div class="location-text">%data%</div>',
         majors: '<em><br>Major: %data%</em>'
