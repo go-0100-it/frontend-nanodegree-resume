@@ -12,15 +12,15 @@ replace the %data% placeholder text you see in them.
 */
 var HTMLprependHeader = {
     name: '<h1 id="name">%data%</h1>',
-    role: '<span>%data%</span><hr>'
+    role: '<span class="small-block">%data%</span><hr>'
 }
 
 var HTMLappendHeader = {
     contacts: {
-        mobile: '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>',
-        email: '<li class="flex-item"><span class="orange-text">email</span><span class="white-text">%data%</span></li>',
-        github: '<li class="flex-item"><span class="orange-text">github</span><span class="white-text">%data%</span></li>',
-        location: '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>',
+        mobile: '<li class="flex-item"><span class="orange-text small-block">mobile</span><span class="white-text small-block">%data%</span></li>',
+        email: '<li class="flex-item"><span class="orange-text small-block">email</span><span class="white-text small-block">%data%</span></li>',
+        github: '<li class="flex-item"><span class="orange-text small-block">github</span><span class="white-text small-block">%data%</span></li>',
+        location: '<li class="flex-item"><span class="orange-text small-block">location</span><span class="white-text small-block">%data%</span></li>',
     },
     biopic: '<img src="%data%" class="biopic">',
     welcomeMessage: '<span class="welcome-message">%data%</span>',
@@ -30,31 +30,32 @@ var HTMLappendHeader = {
 
 var HTMLwork = {
     jobs: [{
-    	workStart: '<div class="work-entry"></div>',
-	splitLink: {
+        workStart: '<div class="work-entry"></div>',
+        splitLink: {
             employer: '<a href="#">%data%',
             title: ' - %data%</a>'
-	},
-	dummy: 'dummy',
-    	dates: '<div class="date-text">%data%</div>',
-    	location: '<div class="location-text">%data%</div>',
-    	description: '<p><br>%data%</p>'
+        },
+        dummy: 'dummy',
+        dates: '<div class="date-text">%data%</div>',
+        location: '<div class="location-text">%data%</div>',
+        description: '<p><br>%data%</p>'
     }]
 }
 
 var HTMLprojects = {
     projects: [{
         projectStart: '<div class="project-entry"></div>',
-	splitLink: {
+        splitLink: {
             title: '<a href="#">%data%</a>',
             dates: '<div class="date-text">%data%</div>'
-	},
-	dummy: 'dummy',
+        },
+        dummy: 'dummy',
         description: '<p><br>%data%</p>',
         images: '<img src="%data%">'
     }]
 }
 
+var HTMLonlineClasses = '<h3 id="classes-h3">Online Classes</h3>';
 var HTMLeducation = {
     schools: [{
         schoolsStart: '<div class="education-entry"></div>',
@@ -62,26 +63,25 @@ var HTMLeducation = {
             name: '<a href="#">%data%',
             degree: ' -- %data%</a>'
         },
-	dummy: 'dummy',
+        dummy: 'dummy',
         dates: '<div class="date-text">%data%</div>',
         location: '<div class="location-text">%data%</div>',
         majors: '<em><br>Major: %data%</em>'
     }],
     onlineCourses: [{
-
-
+        schoolsStart: '<div class="education-entry"></div>',
+        splitLink: {
+            title: '<a href="#">%data%',
+            school: ' - %data%</a>'
+        },
+        dummy: 'dummy',
+        dates: '<div class="date-text">%data%</div>',
+        url: '<br><a href="#">%data%</a>'
     }]
 }
 
-var HTMLonlineClasses = '<h3>Online Classes</h3>';
-var HTMLonlineTitle = '<a href="#">%data%';
-var HTMLonlineSchool = ' - %data%</a>';
-var HTMLonlineDates = '<div class="date-text">%data%</div>';
-var HTMLonlineURL = '<br><a href="#">%data%</a>';
-
 var internationalizeButton = '<button>Internationalize</button>';
 var googleMap = '<div id="map"></div>';
-
 
 /*
 The Internationalize Names challenge found in the lesson Flow Control from JavaScript Basics requires you to create a function that will need this helper code to run. Don't delete! It hooks up your code to the button you'll be appending.
