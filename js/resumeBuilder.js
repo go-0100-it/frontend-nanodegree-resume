@@ -85,21 +85,6 @@ var education = {
         "school": "Udacity",
         "dates": "string", //(works with a hyphen between them)  
         "url": "string"
-    }, {
-        "title": "JavaScript (Understanding the Wierd Parts)",
-        "school": "Udemy - Anthony Alicea",
-        "dates": "string", //(works with a hyphen between them)  
-        "url": "https://www.udemy.com/understand-javascript/learn/v4/overview"
-    }, {
-        "title": "Intro to Programming NanaDegree",
-        "school": "Udacity",
-        "dates": "string", //(works with a hyphen between them)  
-        "url": "https://www.udacity.com/course/intro-to-programming-nanodegree--nd000"
-    }, {
-        "title": "Front-End Web Developer NanoDegree",
-        "school": "Udacity",
-        "dates": "string", //(works with a hyphen between them)  
-        "url": "string"
     }],
     "display": function() {
         appendHTML(education, HTMLeducation, $("#education"));
