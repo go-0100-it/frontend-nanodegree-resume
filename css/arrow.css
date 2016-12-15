@@ -1,0 +1,30 @@
+svg {
+    position: fixed;
+    top: 80%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.arrow {
+    stroke-dasharray: 3000;
+    stroke-dashoffset: -3000;
+    animation: draw-arrow 2s infinite;
+    animation-timing-function: ease-in;
+}
+
+@keyframes draw-arrow {
+    0% {
+        stroke-dashoffset: -3000;
+        opacity: 0.25;
+    }
+    50% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+    100% {
+        stroke-dashoffset: 3000;
+        opacity: 0.25;
+    }
+}

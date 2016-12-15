@@ -1,14 +1,23 @@
-/*
-This is empty on purpose! Your code to build the resume will go here.
- */
+// init ScrollMagic Controller
+var controller = new ScrollMagic.Controller();
+
+var myEl2height = $("#header").height();
+var elMarg = ($(window).height() - myEl2height) / 6;
+var myEl = $("#header-container");
+myEl.height($(window).height());
+myEl.css('margin-top', elMarg + 'px');
+
+// A function to check if an Object's property value or an Array's element value is an Array.
 var isArray = function(a) {
     return (!!a) && (a.constructor === Array);
 };
 
+// A function to check if an Object's property value or an Array's element value is an Object.
 var isObject = function(a) {
     return (!!a) && (a.constructor === Object);
 };
 
+// An Object literal defining biographical details of the person
 var bio = {
     "name": "Dave Waters",
     "role": "Android and Web Application Developer",
@@ -22,11 +31,12 @@ var bio = {
     "skills": ["HTML", "CSS", "JavaScript", "JSON", "Python", "Java", "XML"],
     "biopic": "images/bio_image.jpg",
     "display": function() {
-        prependHTML(bio, HTMLprependHeader, $("#header"));
-        appendHTML(bio, HTMLappendHeader, $("#header"));
+        prependHTML(this, HTMLprependHeader, $("#header"));
+        appendHTML(this, HTMLappendHeader, $("#header"));
     }
 }
 
+// An Object literal defining the person's education.
 var education = {
     "schools": [{
         "name": "Mohawk College",
@@ -87,10 +97,11 @@ var education = {
         "url": "string"
     }],
     "display": function() {
-        appendHTML(education, HTMLeducation, $("#education"));
+        appendHTML(this, HTMLeducation, $("#education"));
     }
 }
 
+// An Object literal defining the person's work history
 var work = {
     "jobs": [{
         "employer": "Toyota Motor Manufacturing Canada",
@@ -136,10 +147,11 @@ var work = {
         "description": "string"
     }],
     "display": function() {
-        appendHTML(work, HTMLwork, $("#workExperience"));
+        appendHTML(this, HTMLwork, $("#workExperience"));
     }
 }
 
+// An Object literal defining the person's project history
 var projects = {
     "projects": [{
         "title": "Project 1",
@@ -178,11 +190,13 @@ var projects = {
         "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
     }],
     "display": function() {
-        appendHTML(projects, HTMLprojects, $("#projects"));
+        appendHTML(this, HTMLprojects, $("#projects"));
     }
 }
 
-
+/**
+ * A function to loop over an objects property keys and 
+ */
 function prependHTML(contentData, htmlStrings, pendElement) {
 
     var keysArray = Object.keys(htmlStrings);
@@ -193,6 +207,35 @@ function prependHTML(contentData, htmlStrings, pendElement) {
             pendElement.prepend(htmlStrings[key].replace("%data%", contentData[key]));
         } else {
             pendElement.prepend(htmlStrings[key]);
+        }
+    }
+}
+
+function objLoop(contentData, htmlStrings, pendElement) {
+
+    var keysArray = Object.keys(htmlStrings);
+    for (var i = 0; i < keysArray.length; i++) {
+
+        var key = keysArray[i];
+        if (contentData.hasOwnProperty(key)) {
+
+            if (isArray(contentData[key])) {
+                if (htmlStrings === HTMLeducation && i === 1) {
+                    pendElement.append(HTMLonlineClasses);
+                }
+                arrayLoop(contentData[key], htmlStrings[key], htmlStrings === HTMLappendHeader ? $("#skills") : pendElement);
+            } else if (isObject(contentData[key])) {
+                appendHTML(contentData[key], htmlStrings[key], htmlStrings === HTMLappendHeader ? $("#topContacts") : pendElement);
+            } else {
+                pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
+            }
+
+        } else {
+            if (contentData === bio) {
+                pendElement.append(htmlStrings[key]);
+            } else {
+                createBulkEntry(contentData, htmlStrings, pendElement);
+            }
         }
     }
 }
@@ -211,7 +254,7 @@ function appendHTML(contentData, htmlStrings, pendElement) {
                 }
                 arrayLoop(contentData[key], htmlStrings[key], htmlStrings === HTMLappendHeader ? $("#skills") : pendElement);
             } else if (isObject(contentData[key])) {
-                appendHTML(contentData[key], htmlStrings[key], htmlStrings == HTMLappendHeader ? $("#topContacts") : pendElement);
+                appendHTML(contentData[key], htmlStrings[key], htmlStrings === HTMLappendHeader ? $("#topContacts") : pendElement);
             } else {
                 pendElement.append(htmlStrings[key].replace("%data%", contentData[key]));
             }
@@ -220,7 +263,7 @@ function appendHTML(contentData, htmlStrings, pendElement) {
             if (contentData === bio) {
                 pendElement.append(htmlStrings[key]);
             } else {
-                createBulkEntry(contentData, htmlStrings, pendElement, key);
+                createBulkEntry(contentData, htmlStrings, pendElement);
             }
         }
     }
@@ -284,3 +327,91 @@ bio.display();
 work.display();
 projects.display();
 education.display();
+
+var blockTween = new TweenMax.to('#header', 1.2, {
+    backgroundColor: "#484848"
+});
+
+var containerScene = new ScrollMagic.Scene({
+        triggerElement: "#header",
+        triggerHook: 0 // don't trigger until #pinned-trigger1 hits the top of the viewport
+    })
+    .setTween(blockTween)
+    .addTo(controller);
+
+var blockTween = new TweenMax.to('#header-container', 1.2, {
+    backgroundColor: "#fff"
+});
+
+var containerScene = new ScrollMagic.Scene({
+        triggerElement: "#header",
+        triggerHook: 0 // don't trigger until #pinned-trigger1 hits the top of the viewport
+    })
+    .setTween(blockTween)
+    .addTo(controller);
+
+// Scene Handler
+var scene = new ScrollMagic.Scene({
+        triggerElement: "#header", // point of execution
+        duration: 0, // pin element for the window height - 1
+        triggerHook: 0, // don't trigger until #pinned-trigger1 hits the top of the viewport
+        reverse: true // allows the effect to trigger when scrolled in the reverse direction
+    })
+    .setPin("#header") // the element we want to pin
+
+
+// Scene2 Handler
+var scene2 = new ScrollMagic.Scene({
+        triggerElement: "#workExperience", // point of execution
+        duration: $(window).height() - 500, // pin element for the window height - 1
+        triggerHook: "#topContacts", // don't trigger until #pinned-trigger1 hits the top of the viewport
+        reverse: true // allows the effect to trigger when scrolled in the reverse direction
+    })
+    .setPin("#workExperience"); // the element we want to pin
+
+// Scene3 Handler
+var scene3 = new ScrollMagic.Scene({
+        triggerElement: "#projects", // point of execution
+        duration: $(window).height() - 250, // pin element for the window height - 1
+        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
+        reverse: true // allows the effect to trigger when scrolled in the reverse direction
+    })
+    .setPin("#projects"); // the element we want to pin
+
+// Scene4 Handler
+var scene4 = new ScrollMagic.Scene({
+        triggerElement: "#education", // point of execution
+        duration: $(window).height() - 250, // pin element for the window height - 1
+        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
+        reverse: true // allows the effect to trigger when scrolled in the reverse direction
+    })
+    .setPin("#education"); // the element we want to pin
+
+// Scene5 Handler
+var scene5 = new ScrollMagic.Scene({
+        triggerElement: "#mapDiv", // point of execution
+        duration: $(window).height() - 50, // pin element for the window height - 1
+        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
+        reverse: true // allows the effect to trigger when scrolled in the reverse direction
+    })
+    .setPin("#mapDiv"); // the element we want to pin
+
+// Scene6 Handler
+var scene6 = new ScrollMagic.Scene({
+        triggerElement: "#lets-connect", // point of execution
+        duration: $(window).height() - 0, // pin element for the window height - 1
+        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
+        reverse: true // allows the effect to trigger when scrolled in the reverse direction
+    })
+    .setPin("#lets-connect"); // the element we want to pin
+
+
+// Add Scenes to ScrollMagic Controller
+controller.addScene([
+    scene,
+    scene2,
+    scene3,
+    scene4,
+    scene5,
+    scene6
+]);
