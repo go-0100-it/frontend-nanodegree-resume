@@ -185,6 +185,11 @@ img {
     padding: 10px;
 }
 
+.img-200x100 {
+    width: 200px;
+    height: 100px;
+}
+
 span {
     padding: 5px;
 }

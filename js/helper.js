@@ -51,7 +51,7 @@ var HTMLprojects = {
         },
         dummy: 'dummy',
         description: '<p><br>%data%</p>',
-        images: '<img src="%data%">'
+        images: '<img class="img-200x100" src="%data%">'
     }]
 }
 

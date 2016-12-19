@@ -1,9 +1,14 @@
 var obj = document.getElementById("svg");
+obj.timeOutApplied = false;
 
 var hideSVG = function() {
-    if ($(window).scrollTop() + $(window).height() < $(document).height() - 300) {
+    if ($(window).scrollTop() + $(window).height() < $(document).height() - 50 && !obj.timeOutApplied) {
         obj.style.display = "none";
-        setTimeout(function() { obj.style.display = "block"; }, 3000);
+        obj.timeOutApplied = true;
+        setTimeout(function() {
+            obj.style.display = "block";
+            obj.timeOutApplied = false;
+        }, 1500);
     } else {
         obj.style.display = "none";
     }

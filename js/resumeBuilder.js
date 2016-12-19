@@ -162,7 +162,7 @@ var projects = {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["http://lorempixel.com/g/104/100", "http://lorempixel.com/g/101/100", "http://lorempixel.com/g/102/100", "http://lorempixel.com/g/103/100"] // urls
+        "images": ["http://lorempixel.com/g/204/100", "http://lorempixel.com/g/201/100", "http://lorempixel.com/g/202/100", "http://lorempixel.com/g/203/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
@@ -172,22 +172,22 @@ var projects = {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
+        "images": ["http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
+        "images": ["http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
+        "images": ["http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100"] // urls
     }, {
         "title": "string",
         "dates": "string", //(works with a hyphen between them)  
         "description": "string",
-        "images": ["http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100", "http://lorempixel.com/g/100/100"] // urls
+        "images": ["http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100", "http://lorempixel.com/g/200/100"] // urls
     }],
     "display": function() {
         appendHTML(this, HTMLprojects, $("#projects"));
@@ -359,59 +359,32 @@ var scene = new ScrollMagic.Scene({
     })
     .setPin("#header") // the element we want to pin
 
-
 // Scene2 Handler
-var scene2 = new ScrollMagic.Scene({
-        triggerElement: "#workExperience", // point of execution
-        duration: $(window).height() - 500, // pin element for the window height - 1
-        triggerHook: "#topContacts", // don't trigger until #pinned-trigger1 hits the top of the viewport
-        reverse: true // allows the effect to trigger when scrolled in the reverse direction
-    })
-    .setPin("#workExperience"); // the element we want to pin
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#workExperience").height(), offset: $(window).height() / 2 - 110 })
+    .setPin("#workExperience")
+    .addTo(controller);
 
 // Scene3 Handler
-var scene3 = new ScrollMagic.Scene({
-        triggerElement: "#projects", // point of execution
-        duration: $(window).height() - 250, // pin element for the window height - 1
-        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
-        reverse: true // allows the effect to trigger when scrolled in the reverse direction
-    })
-    .setPin("#projects"); // the element we want to pin
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#projects").height(), offset: $("#workExperience").height() * 2 + $(window).height() / 2 - 100 })
+    .setPin("#projects")
+    .addTo(controller);
 
-// Scene4 Handler
-var scene4 = new ScrollMagic.Scene({
-        triggerElement: "#education", // point of execution
-        duration: $(window).height() - 250, // pin element for the window height - 1
-        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
-        reverse: true // allows the effect to trigger when scrolled in the reverse direction
-    })
-    .setPin("#education"); // the element we want to pin
+//Scene4 Handler
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#education").height(), offset: $("#workExperience").height() * 2 + $("#projects").height() * 2 + $(window).height() / 2 - 100 })
+    .setPin("#education")
+    .addTo(controller);
 
 // Scene5 Handler
-var scene5 = new ScrollMagic.Scene({
-        triggerElement: "#mapDiv", // point of execution
-        duration: $(window).height() - 50, // pin element for the window height - 1
-        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
-        reverse: true // allows the effect to trigger when scrolled in the reverse direction
-    })
-    .setPin("#mapDiv"); // the element we want to pin
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#mapDiv").height(), offset: $("#workExperience").height() * 2 + $("#projects").height() * 2 + $("#education").height() * 2 + $(window).height() / 2 - 90 })
+    .setPin("#mapDiv")
+    .addTo(controller);
 
 // Scene6 Handler
-var scene6 = new ScrollMagic.Scene({
-        triggerElement: "#lets-connect", // point of execution
-        duration: $(window).height() - 0, // pin element for the window height - 1
-        triggerHook: '#topContacts', // don't trigger until #pinned-trigger1 hits the top of the viewport
-        reverse: true // allows the effect to trigger when scrolled in the reverse direction
-    })
-    .setPin("#lets-connect"); // the element we want to pin
-
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("lets-connect").height(), offset: $("#workExperience").height() * 2 + $("#projects").height() * 2 + $("#education").height() * 2 + $("#mapDiv").height() * 2 + $(window).height() / 2 - 90 })
+    .setPin("#lets-connect")
+    .addTo(controller);
 
 // Add Scenes to ScrollMagic Controller
 controller.addScene([
     scene,
-    scene2,
-    scene3,
-    scene4,
-    scene5,
-    scene6
 ]);
