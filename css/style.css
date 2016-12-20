@@ -203,6 +203,16 @@ span {
     height: 400px;
 }
 
+#mapDiv {
+    height: 1000px;
+    width: 100%;
+    padding-bottom: 5%;
+}
+
+#scroll-spacer {
+    background-color: transparent;
+}
+
 
 /* Media queries to handle various device widths */
 

@@ -1,6 +1,8 @@
 // init ScrollMagic Controller
 var controller = new ScrollMagic.Controller();
 
+$("#scroll-spacer").height($("#mapDiv").height() * 2);
+
 var myEl2height = $("#header").height();
 var elMarg = ($(window).height() - myEl2height) / 6;
 var myEl = $("#header-container");
@@ -106,43 +108,31 @@ var work = {
     "jobs": [{
         "employer": "Toyota Motor Manufacturing Canada",
         "title": "Multi-skilled Team Leader",
-        "location": "Cambridge, Ontario CAN",
+        "location": "Cambridge, Ontario",
         "dates": "2008 - Present", //(Can be 'in progress')  
         "description": "string"
     }, {
         "employer": "Oakrun Bakery",
         "title": "Millwright",
-        "location": "string",
+        "location": "Ancaster, Ontario",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
     }, {
         "employer": "Wrigley Canada",
         "title": "Tab Wrapping Mechanic",
-        "location": "string",
+        "location": "Toronto, Ontario",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
     }, {
         "employer": "Patheon Pharmacutical",
         "title": "Packaging Group Leader",
-        "location": "string",
+        "location": "Burlington, Ontario",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
     }, {
         "employer": "Speciality Coatings Ltd.",
         "title": "Chemical Formulation Specialist",
-        "location": "string",
-        "dates": "string", //(Can be 'in progress')  
-        "description": "string"
-    }, {
-        "employer": "Some Other Place",
-        "title": "Some other title",
-        "location": "Some other place",
-        "dates": "Before - Some other time", //(Can be 'in progress')  
-        "description": "Lots of great other skills aquired and mastered."
-    }, {
-        "employer": "Speciality Coatings Ltd.",
-        "title": "Chemical Formulation Specialist",
-        "location": "string",
+        "location": "Brantford, Ontario",
         "dates": "string", //(Can be 'in progress')  
         "description": "string"
     }],
@@ -327,6 +317,7 @@ bio.display();
 work.display();
 projects.display();
 education.display();
+$("#mapDiv").append(googleMap);
 
 var blockTween = new TweenMax.to('#header', 1.2, {
     backgroundColor: "#484848"
@@ -360,27 +351,27 @@ var scene = new ScrollMagic.Scene({
     .setPin("#header") // the element we want to pin
 
 // Scene2 Handler
-new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#workExperience").height(), offset: $(window).height() / 2 - 110 })
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#workExperience").height() * 1.5, offset: $(window).height() / 2 - 110 })
     .setPin("#workExperience")
     .addTo(controller);
 
 // Scene3 Handler
-new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#projects").height(), offset: $("#workExperience").height() * 2 + $(window).height() / 2 - 100 })
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#projects").height() * 0.5, offset: $("#workExperience").height() * 2.5 + $(window).height() / 2 - 95 })
     .setPin("#projects")
     .addTo(controller);
 
 //Scene4 Handler
-new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#education").height(), offset: $("#workExperience").height() * 2 + $("#projects").height() * 2 + $(window).height() / 2 - 100 })
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#education").height(), offset: $("#workExperience").height() * 2.5 + $("#projects").height() * 1.5 + $(window).height() / 2 - 90 })
     .setPin("#education")
     .addTo(controller);
 
 // Scene5 Handler
-new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("#mapDiv").height(), offset: $("#workExperience").height() * 2 + $("#projects").height() * 2 + $("#education").height() * 2 + $(window).height() / 2 - 90 })
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: 0, offset: $("#workExperience").height() * 2.5 + $("#projects").height() * 1.5 + $("#education").height() * 2 + $(window).height() / 2 - 85 })
     .setPin("#mapDiv")
     .addTo(controller);
 
 // Scene6 Handler
-new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("lets-connect").height(), offset: $("#workExperience").height() * 2 + $("#projects").height() * 2 + $("#education").height() * 2 + $("#mapDiv").height() * 2 + $(window).height() / 2 - 90 })
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("lets-connect").height(), offset: $("#workExperience").height() * 2.5 + $("#projects").height() * 1.5 + $("#education").height() * 2 + $("#mapDiv").height() + 70 })
     .setPin("#lets-connect")
     .addTo(controller);
 
