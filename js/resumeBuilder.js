@@ -371,7 +371,7 @@ new ScrollMagic.Scene({ triggerElement: "#trigger", duration: 0, offset: $("#wor
     .addTo(controller);
 
 // Scene6 Handler
-new ScrollMagic.Scene({ triggerElement: "#trigger", duration: $("lets-connect").height(), offset: $("#workExperience").height() * 2.5 + $("#projects").height() * 1.5 + $("#education").height() * 2 + $("#mapDiv").height() + 70 })
+new ScrollMagic.Scene({ triggerElement: "#trigger", duration: 0, offset: $("#workExperience").height() * 2.5 + $("#projects").height() * 1.5 + $("#education").height() * 2 + $(window).height() / 2 - 85 })
     .setPin("#lets-connect")
     .addTo(controller);
 
